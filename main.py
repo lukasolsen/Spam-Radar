@@ -202,18 +202,17 @@ class Main(object):
 
 main = Main()
 
-#main.read_emails('lukeproductions3@gmail.com', 'Lukas2006.')
+
 #main.worker("Hello Sir/Madam,I was so excited when I saw your mail. Please I am writing to you out of despair.I was living with a foreign contractor who was a gold broker. I know he is not related to you. I got a child for him, in the same year he was attacked by pirates on the coast of the Island of Malta. Before the attack, a shipping company  was supposed to ship 50 kg of gold which he bought but because of his death they didn't ship the gold. I decided to wait, hoping that the family of my daughter's father would contact me, thus we can make a claim. But ever since they never contacted us, which prompted me to call the company's lawyer that drafted the contract agreement. He spoke with the company and invited me to come.I have met with the company. After our deliberation, they said they prefer to ship the gold to the family directly since I am not legally married to him. Their lawyer asked me to invite the family for the gold or let them call him for directives. And sincerely ,I am helpless with their decision ,because I don't know his people, they have never contacted us since the incident. which is extremely understandable that they don't know about us. Therefore please ,I am appealing to you as a foreigner  to stand for me as the family member, so that they can accept to release the gold back to me.Please I pray that you help me for the sake of my child's support ,even if you can take 30% of gold sales please.I beg you please. I am worried with the hope that you will reply soon . Susan")
 
 utils = utilities.Api()
 
 
+
+
 f = open("input/mails/hi.eml", 'r')
 
-d = utils.extract(f, f.name())
-print(d)
-
-main.worker(utils.extract(f, f.name()))
+main.worker(utils.extract(f, f.name)['text'])
 #main.advanced_analysis("Hello My Friend..")
 
 

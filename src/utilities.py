@@ -12,9 +12,6 @@ class Api(object):
     def __init__(self):
         self.hello = "hello"
 
-    def store_information(self, sender_name, sender_email, date, venky, mohitgupta):
-        print("s")
-
     def file_exists (self, f):
         """Checks whether extracted file was extracted before."""
         return os.path.exists(os.path.join(path, f))
