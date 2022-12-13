@@ -1,0 +1,32 @@
+{
+    "name": "Spam Radar",
+    "description": "We help handling spam emails.",
+    
+    "datasets": {
+        "venky_73": {
+            "source": "https://www.kaggle.com/datasets/venky73/spam-mails-dataset",
+            "original_source": "https://www2.aueb.gr/users/ion/data/enron-spam/",
+            "path": "/input/data/venky_73_spam_ham_dataset.csv",
+            "title": "Venky 73, Spam Ham Dataset",
+            "description": "We help handling spam emails.",
+            "gatName": "label",
+            "textName": "text"
+        },
+        "mohitgupta-omg": {
+            "source": "https://www.kaggle.com/datasets/balaka18/email-spam-classification-dataset-csv",
+            "path": "/input/data/mohitgupta-omg-kabble-sms.csv",
+            "title": "Email Spam Classification Dataset CSV",
+            "description": "CSV file containing spam/not spam information about 5172 emails.",
+            "gatName": "v1",
+            "textName": "v2"
+        },
+        "spam": {
+            "source": "https://www.kaggle.com/datasets/shantanudhakadd/email-spam-detection-dataset-classification",
+            "path": "/input/data/spam.csv",
+            "title": "Hello",
+            "description": "World..",
+            "gatName": "Spam or not spam(ham)",
+            "textName": "Content of the mail"
+        }
+}
+}

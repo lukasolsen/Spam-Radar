@@ -1,0 +1,145 @@
+Delivered-To: lukeproductions3@gmail.com
+Received: by 2002:a05:6622:298c:0:0:0:0 with SMTP id c12csp2231301ivu;
+        Mon, 12 Dec 2022 01:11:32 -0800 (PST)
+X-Google-Smtp-Source: AA0mqf7DhCvaaxn9XiD2LEWOiWZZtL6vKVgsZDSeWgf6ShuNm3J/FP29kggcVHJkZlL1MDEHxAOR
+X-Received: by 2002:a17:902:db0b:b0:189:ced9:a5fb with SMTP id m11-20020a170902db0b00b00189ced9a5fbmr21679340plx.33.1670836292714;
+        Mon, 12 Dec 2022 01:11:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1670836292; cv=none;
+        d=google.com; s=arc-20160816;
+        b=m2Kz12utJC7gr2fw/ZU1m3WYqoVb7EdKbm5MQvqzr6QjyhJq4LlOJYctDCSdEw6EzE
+         BupkDk7cb9JdqPkrBMSGu818RfiIN71StGtj921O3lONeoECSsyE1CuKx5oDFsVCzrd8
+         LdguMXy8HVV6PN6ruw62fCjfMEzll2j/22cw0j+Y4HHM2U5q3LgCduII1OME9M2WTe2v
+         6iFxVxGuo6tb0C3BsckP7Q3Dr0uXoDJbtavZKbOjwAUiTJMhfsIpUD18/XrELMUf3hdC
+         zhT3g096BiZ6+NkwEoNPKv+qHCv1nQBfDx3HMAHshVCKfKcjahvZLwcuB2JuOPHn597K
+         Dx/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=references:mime-version:subject:message-id:to:from:date
+         :dkim-signature;
+        bh=WpJdOFFWHODotFhtu0FAIMEnSOFd6VjK8zo9VIWiWu4=;
+        b=OEB29u7jg/WvxQiym3fY9rR2D9fDDir1ZC7wqXU/MTI5B/zxHh36oZRJgFLQ86ONyM
+         LpxBkww22dEDBMHXnidM4TotHJbCVvxJl5nH54Ovh8+ATwgZRvg1PnurcdIeGHMuF3ok
+         +ROf5S8QR+0tS7siKdhTeUiRuZs2ptkbbP4WAndSd9FotfzsPplV/OzFq64Fy84T5UJm
+         DSgSHdointjFKQCD2xq92/J+TDip/4qrpIW4nXjpLokVoJ9JVDuPG7OAkznetszfQ1q0
+         E1kSzjGHmNW8CbgN0+vHpnzBSRnJaPKPpasfMeFpBz3KNCAr6Z7ettKvPF43cyLM+Qr4
+         lY6g==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@aol.com header.s=a2048 header.b=VqDyd1I8;
+       spf=pass (google.com: domain of doctorsusan168@aol.com designates 98.137.64.30 as permitted sender) smtp.mailfrom=doctorsusan168@aol.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=aol.com
+Return-Path: <doctorsusan168@aol.com>
+Received: from sonic307-54.consmr.mail.gq1.yahoo.com (sonic307-54.consmr.mail.gq1.yahoo.com. [98.137.64.30])
+        by mx.google.com with ESMTPS id u3-20020a170902b28300b00186e8c3782esi8392209plr.386.2022.12.12.01.11.32
+        for <lukeproductions3@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Dec 2022 01:11:32 -0800 (PST)
+Received-SPF: pass (google.com: domain of doctorsusan168@aol.com designates 98.137.64.30 as permitted sender) client-ip=98.137.64.30;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@aol.com header.s=a2048 header.b=VqDyd1I8;
+       spf=pass (google.com: domain of doctorsusan168@aol.com designates 98.137.64.30 as permitted sender) smtp.mailfrom=doctorsusan168@aol.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=aol.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1670836292; bh=WpJdOFFWHODotFhtu0FAIMEnSOFd6VjK8zo9VIWiWu4=; h=Date:From:To:Subject:References:From:Subject:Reply-To; b=VqDyd1I8wwNtlEIEXm45zrs6CLdEZRsBMS56KfFpkI4uKDMbXw4bPGI3ohBl082C5EB8Ko+6ihMeIoWXULsnm0aj9vDaimz1/V9QV7Z5YNqGGkJQ5UfrWT3l8AqmOD4mNfJuYEc4VJ2GLYBdnQPlIkeI76K2JKFLaT6B+XM/JZVr7uJMwy5SUwheQ9d0EaC+PDKJPnKkAds8CpODAPite/Tt5wAUe2mOOzcUv7IUMn1z3dkquEn2cNpA3tTK+QUPOdWCXh+rULYco0187zjIzgI3pEuy4tvIZ5OYI0EhFSY+i+5DiHulsX/gUIi9EFTB0Ya8IRbm8QwJwFwm5XqjSw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1670836292; bh=K7BSYs6eYRT1yqnrFW4S7va12S2itzP3+9spypU4cl/=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=SHAoWajcGClLMxwYDd018il8IuAZ3bl2lFmMPT0EGl7JewLJULMnOCoIBKEobxASzjxApNW3aQiXX6raSDlyX/W53V09X+nQGfqJWB33cuhSMb0lUKXMtzAb7Ps3fLmkHq5rUZQ4kujnP85M10/o0RoQPHd08CeP/4xDv0jaeV8H91J1E7o/l3X0R6uKi5VlsanOuiS3ZAjxQbGFCULS19Ut20Ud/gJXdHqBeEYAA2XMZBKqSmNKIPamCnuFn5odebyrxRG4sqCp204ARtQKFZp7LbEIqsj1jpuTIq+dCee/COg2Wr1oNnm1cFo3X42XR6AgoJ3EP8YGlpQ6Y/5nTQ==
+X-YMail-OSG: wxMoipwVM1ns_PrbpnhTJikUFlbxfv46da6elhQKoh_q1.HJYsnPanm9n74NAxv
+ POYmyPNIBhRHesXhqpua1I9Wai_tCknHMNxqXuktxTrV6SW52RFyeVeRYUJGVgBVvmYGsdPzMbmK
+ cXFRNLyuXCfh7h5WCI7uxxgwllB.JfjyZTLdPtH13DrEOVVeE2zQWM0YTolT.436JKEB4I9LtmXP
+ F4Quw1XKpdhUbqaCWTj1cPa8Kr9Ei_AUe6nxWJBxg8DzZmp9CGXHyJ25b1j_IwMroBt0JK9PJV1G
+ onGdCW6NvSKRiMLJAarnfJO7Ep5vOZICxhJQ7N6sJ0vez0HKcwzrCdW84CA.MO2Ab1Tq7ThVMRRA
+ sTEqN.Yqg7pqFnMRqnK1UNbI6p9d3cFZa9LzMpiKaOQTHrlP6GoBAPXBiEwgrXJQZtWlGdAwiatQ
+ a7QFJNmUC7yQLuG5FRS1JIeYa0ttZYrZXFPl9DnEF5tLqjgBgtwd4EPoNZ9x68Vnoh71wvyTJ5pa
+ N_a5PuX7CxBDmqCdqIFWrvU9GZ6eEEth1A6NWl74tS2gwCRG44c7.NO_P548Jtspl.n8gO._03AH
+ xSB79ekb3DJvhiagtpzn211yMmivtxd.cssGROnlKty76LoRfQA8Z_YAdUSsOCxVxAnaZuGhXn_1
+ NIm6V3shTs.E9Imru7_YdeRkptjB_0JzBSyyIc6Tqes50CqP4QRYDXdsZ6o3Cu3erre25WQGu3om
+ vW9lViW1.mjAJovJTdz2RKN4aGcrWTqQhR3ADYsT5v3Mtf2p9ysu1MHUMf86QMXL0uk6noZ3EBPZ
+ .g4fdLMD4O0_fytpJPRyUGCarZAfltHOeYJjuLcalm19lxqxZjzZf.vNvbnQQq30qfEf0IkYW2Is
+ 53Fl_KjQuMra_mRnO.fGlqbg390b1yHrTa80MA6YjKbd6K82OcIZ24gETfOr840PqIcIZ.lEIWSG
+ w1JjRuuFFteOLToypGAsaEAkzbXQU0qsG2Ivs803vvc8xnUXo_YzuueTB0oV53YTVodocYuhPVrw
+ dE3dJBai.Kf7XHxTU0niJmlipyG9N5oXStSXK2iqANS6MAQbxGCmtavdPH7ZO2H1vYRSts5EFY.x
+ rvho52PHySE7zmTIVQpz4i5dZ7oUKEFKZsTIu2l3MfdOp.NtJVwpxRo_Vmf1n.exe_l8wUJYBCtQ
+ euwkm1eYuFBkojA331IHSeC_44lDXE_KMS_qcMJv41Dchf.utKnOhZeuGjz0xSVjA2ttMkLndgCr
+ bdkdZYgz71vGGEj4Jed9tRixvWE5YXGNu.aQDpK3cu.fMEDsIoxf_AEbreYYIh.ND16XIouCVgn7
+ j.EN9_fZFWvMvStZpStJswCg290zpLhn8AeW.tKcQWCQN0p6DX79yz4Dnx6FBML7hNftfTCyJUSU
+ D9aJXxeZZmpVIl5pd0whCK6rArtBqiLHmqb9R1_F4tOfCEwvWgWLO_I5kbgpHhGen2zLf9.b0CKZ
+ pLZJjmwcpdU0XngarzqrH7ke8IzldQ9Tx9YUiR30XuYgCS2Couc5ycyYQ3cUvyhOJDrpTpktzenS
+ UHTUeFd7AuLyKGF0ervkI_iJins2CROYeHIvFuBCUjERvAMONDZQPcvMaa3UjFUnLonNfsztiJ89
+ xR2YCV8lTGA9XlCYBa94Lbq4gfasnp2J0h5e0DvygqBT5.lTd7L6J3zBr5ExEY92UG9zU6C3Qg4b
+ lNHYcHnwc8lmhk.N.M9tv8dWNm8p_aDYSDrstHYzh1InMKDvrHDItcBwHlddlSU7Z6RtUjhSspTr
+ bLoVDjJZNYEIYKCK4HxsIwpYoZJuY4zSBTlkA.WDnG5IzZtIJLcuJdKaO88tqAyzBzht7SsHxLEZ
+ 2q_NQ.jN661HMri1CqgUaDJcqL.TMNi816j2j5HBO48wOHXrOqxzsLLAcHa6k2YywE6MggGU6WFb
+ f3cRf.aker3c4AsIGhPZvzaTPt8qGa_71UZQs7oNPpP7HSwLEMFtqkMnz9ldB9EVM1XLAcqGmZDz
+ BLLFAyZm2Egkp8xC4iBYOlg6WHIVbF1qjt6DILpEhCpfzLHob9JewyEMcDwqmQBj_Jq6YeWuRnDx
+ 9LuH9_J9wdcK.owZa3k5LrSaZcXNWLZ2d7NvEAe7uweT9Pe3qykOiZLZ95xFzomANQLCfnksYtdL
+ vJh3R3ghMZA--
+X-Sonic-MF: <doctorsusan168@aol.com>
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.gq1.yahoo.com with HTTP; Mon, 12 Dec 2022 09:11:32 +0000
+Date: Mon, 12 Dec 2022 09:11:27 +0000 (UTC)
+From: doctor susan <doctorsusan168@aol.com>
+To: "lukeproductions3@gmail.com" <lukeproductions3@gmail.com>
+Message-ID: <1334284107.3385834.1670836287217@mail.yahoo.com>
+Subject: hi
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_3385833_1630741824.1670836287216"
+References: <1334284107.3385834.1670836287217.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.20926 AolMailNorrin
+Content-Length: 3807
+
+------=_Part_3385833_1630741824.1670836287216
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Hello Sir/Madam,
+I was so excited when I saw your mail. Please I am writing to you out of de=
+spair.I was living with a foreign contractor who was a gold broker. I know =
+he is not related to you. I got a child for him, in the same year he was at=
+tacked by pirates on the coast of the Island of Malta.
+Before the attack, a shipping company=C2=A0 was supposed to ship 50 kg of g=
+old which he bought but because of his death they didn't ship the gold. I d=
+ecided to wait, hoping that the family of my daughter's father would contac=
+t me, thus we can make a claim. But ever since they never contacted us, whi=
+ch prompted me to call the company's lawyer that drafted the contract agree=
+ment.
+He spoke with the company and invited me to come.I have met with the compan=
+y. After our deliberation, they said they prefer to ship the gold to the fa=
+mily directly since I am not legally married to him. Their lawyer asked me =
+to invite the family for the gold or let them call him for directives. And =
+sincerely ,I am helpless with their decision ,because I don't know his peop=
+le, they have never contacted us since the incident. which is extremely und=
+erstandable that they don't know about us.
+Therefore please ,I am appealing to you as a foreigner=C2=A0 to stand for m=
+e as the family member, so that they can accept to release the gold back to=
+ me.Please I pray that you help me for the sake of my child's support ,even=
+ if you can take 30% of gold sales please.I beg you please.
+I am worried with the hope that you will reply soon .
+Susan
+
+------=_Part_3385833_1630741824.1670836287216
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head></head><body><div class=3D"yahoo-style-wrap" style=3D"font-fami=
+ly:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;"><div dir=
+=3D"ltr" data-setdir=3D"false"><div><div>Hello Sir/Madam,</div><div><br></d=
+iv><div>I was so excited when I saw your mail. Please I am writing to you o=
+ut of despair.I was living with a foreign contractor who was a gold broker.=
+ I know he is not related to you. I got a child for him, in the same year h=
+e was attacked by pirates on the coast of the Island of Malta.</div><div><b=
+r></div><div>Before the attack, a shipping company&nbsp; was supposed to sh=
+ip 50 kg of gold which he bought but because of his death they didn't ship =
+the gold. I decided to wait, hoping that the family of my daughter's father=
+ would contact me, thus we can make a claim. But ever since they never cont=
+acted us, which prompted me to call the company's lawyer that drafted the c=
+ontract agreement.</div><div><br></div><div>He spoke with the company and i=
+nvited me to come.I have met with the company. After our deliberation, they=
+ said they prefer to ship the gold to the family directly since I am not le=
+gally married to him. Their lawyer asked me to invite the family for the go=
+ld or let them call him for directives. And sincerely ,I am helpless with t=
+heir decision ,because I don't know his people, they have never contacted u=
+s since the incident. which is extremely understandable that they don't kno=
+w about us.</div><div><br></div><div>Therefore please ,I am appealing to yo=
+u as a foreigner&nbsp; to stand for me as the family member, so that they c=
+an accept to release the gold back to me.Please I pray that you help me for=
+ the sake of my child's support ,even if you can take 30% of gold sales ple=
+ase.I beg you please.</div><div><br></div><div>I am worried with the hope t=
+hat you will reply soon .</div><div><br></div><div>Susan</div></div><br></d=
+iv></div></body></html>
+------=_Part_3385833_1630741824.1670836287216--
