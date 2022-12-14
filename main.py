@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
+import datetime
 
 import nltk
 import re
@@ -118,6 +119,7 @@ class Main(object):
             prediction = model.predict(input_mail_features)
 
             if(prediction[0] == 1):
+                
                 print(f"{title} flagged the email as non threatning (HAM)")
             elif (prediction[0] == 0):
                 spam = True
@@ -126,8 +128,10 @@ class Main(object):
                 print("Clean email. Lucky this time haha")
 
         if spam == True:
+            self.stats(1, 0)
             print("We marked the email as spam.")
         else:
+            self.stats(0, 1)
             print("We did not find anything weird.")
 
     def advanced_analysis(self, content):
@@ -200,6 +204,38 @@ class Main(object):
         
         print(prediction)
 
+    def stats(self, amount_of_spam = 0, amount_of_ham = 0):
+        data = {}
+        date = datetime.datetime.now()
+        year = date.year
+        month = date.month
+        day = date.day
+        if os.path.exists('output/statistics.json'):
+            with open("output/statistics.json") as f:
+                data = json.load(f)
+                
+
+            with open("output/statistics.json", 'w') as f:
+                data[year][month][day]['Spam'] += amount_of_spam
+                data['Ham'] += amount_of_ham
+                json.dump(data, f, indent=4)
+        else:
+            with open("output/statistics.json", 'w') as f:
+                
+                data = {
+                    year:
+                        {
+                            month: {
+                                day: {
+                                    "Spam": amount_of_spam,
+                                    "Ham": amount_of_ham
+                                }
+                            }
+                        }
+
+                }
+                json.dump(data, f, indent=4)
+        
 main = Main()
 
 

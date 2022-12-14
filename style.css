@@ -1,0 +1,7 @@
+.news{
+    background-color: red;
+    border-radius: .3em;
+}
+.news .title h4{
+    font-size: 22px
+}
