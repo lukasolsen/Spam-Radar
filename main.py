@@ -62,77 +62,84 @@ class Main(object):
         # Print the Plain Text (is this always the plain text?)
         print(msg.get_payload()[0].get_payload())
 
-    def worker(self, content):
+    def worker(self):
         data = {}
         spam = False
         scores = {}
         with open(self.config) as af:
             data = json.load(af)
             #print(data['datasets'])
-        for datasete in data['datasets']:
-            dataset = data['datasets'][datasete]
-            source = dataset['source']
-            path = dataset['path']
-            title = dataset['title']
-            description = dataset['description']
-            cat = dataset['gatName']
-            text = dataset['textName']
-            
-            raw_mail_data = pd.read_csv(self.root + path, encoding="ISO-8859-1")
-            mail_data = raw_mail_data.where((pd.notnull(raw_mail_data)), '')
+        for email in os.listdir("input/mails"):
 
-            mail_data.loc[mail_data[cat] == 'spam', cat,] = 0
-            mail_data.loc[mail_data[cat] == 'ham', cat,] = 1
+            utils = utilities.Api()
 
-            X = mail_data[text]
-            Y = mail_data[cat]
+            f = open("input/mails/" + email, 'r')
 
-            X_train, X_test, Y_train, Y_test = train_test_split(X, Y, train_size=0.8, test_size=0.2, random_state=3)
-
-            feature_extraction = TfidfVectorizer(min_df=1, stop_words="english", lowercase=True)
-
-            X_train_features = feature_extraction.fit_transform(X_train)
-            X_test_features = feature_extraction.transform(X_test)
-
-            Y_train = Y_train.astype('int')
-            Y_test = Y_test.astype('int')
-
-            model = LinearSVC()
-            model.fit(X_train_features, Y_train)
-
-
-            prediction_on_training_data = model.predict(X_train_features)
-            accuracy_on_training_data = accuracy_score(Y_train, prediction_on_training_data)
-
-            print(title + "Accuracy on the training data : ", accuracy_on_training_data)
-
-            prediction_on_test_data = model.predict(X_test_features)
-            accuracy_on_test_data = accuracy_score(Y_test, prediction_on_test_data)
-
-            print(title + "Accuracy on test data : ", accuracy_on_test_data)
-
-            #Prediction on email
-
-            input_email = [content]
-
-            input_mail_features = feature_extraction.transform(input_email)
-            prediction = model.predict(input_mail_features)
-
-            if(prediction[0] == 1):
+            content = utils.extract(f, f.name)['text']
+            for datasete in data['datasets']:
+                dataset = data['datasets'][datasete]
+                source = dataset['source']
+                path = dataset['path']
+                title = dataset['title']
+                description = dataset['description']
+                cat = dataset['gatName']
+                text = dataset['textName']
                 
-                print(f"{title} flagged the email as non threatning (HAM)")
-            elif (prediction[0] == 0):
-                spam = True
-                print(f"{title} has detected the email as spam")
-            else:
-                print("Clean email. Lucky this time haha")
+                raw_mail_data = pd.read_csv(self.root + path, encoding="ISO-8859-1")
+                mail_data = raw_mail_data.where((pd.notnull(raw_mail_data)), '')
 
-        if spam == True:
-            self.stats(1, 0)
-            print("We marked the email as spam.")
-        else:
-            self.stats(0, 1)
-            print("We did not find anything weird.")
+                mail_data.loc[mail_data[cat] == 'spam', cat,] = 0
+                mail_data.loc[mail_data[cat] == 'ham', cat,] = 1
+
+                X = mail_data[text]
+                Y = mail_data[cat]
+
+                X_train, X_test, Y_train, Y_test = train_test_split(X, Y, train_size=0.8, test_size=0.2, random_state=3)
+
+                feature_extraction = TfidfVectorizer(min_df=1, stop_words="english", lowercase=True)
+
+                X_train_features = feature_extraction.fit_transform(X_train)
+                X_test_features = feature_extraction.transform(X_test)
+
+                Y_train = Y_train.astype('int')
+                Y_test = Y_test.astype('int')
+
+                model = LinearSVC()
+                model.fit(X_train_features, Y_train)
+
+
+                prediction_on_training_data = model.predict(X_train_features)
+                accuracy_on_training_data = accuracy_score(Y_train, prediction_on_training_data)
+
+                print(title + "Accuracy on the training data : ", accuracy_on_training_data)
+
+                prediction_on_test_data = model.predict(X_test_features)
+                accuracy_on_test_data = accuracy_score(Y_test, prediction_on_test_data)
+
+                print(title + "Accuracy on test data : ", accuracy_on_test_data)
+
+                #Prediction on email
+
+                input_email = [content]
+
+                input_mail_features = feature_extraction.transform(input_email)
+                prediction = model.predict(input_mail_features)
+
+                if(prediction[0] == 1):
+                    
+                    print(f"{title} flagged the email as non threatning (HAM)")
+                elif (prediction[0] == 0):
+                    spam = True
+                    print(f"{title} has detected the email as spam")
+                else:
+                    print("Clean email. Lucky this time haha")
+
+            if spam == True:
+                self.stats(1, 0)
+                print("We marked the email as spam.")
+            else:
+                self.stats(0, 1)
+                print("We did not find anything weird.")
 
     def advanced_analysis(self, content):
         path = 'input/data/hamnspam/'
@@ -241,15 +248,11 @@ main = Main()
 
 #main.worker("Hello Sir/Madam,I was so excited when I saw your mail. Please I am writing to you out of despair.I was living with a foreign contractor who was a gold broker. I know he is not related to you. I got a child for him, in the same year he was attacked by pirates on the coast of the Island of Malta. Before the attack, a shipping company  was supposed to ship 50 kg of gold which he bought but because of his death they didn't ship the gold. I decided to wait, hoping that the family of my daughter's father would contact me, thus we can make a claim. But ever since they never contacted us, which prompted me to call the company's lawyer that drafted the contract agreement. He spoke with the company and invited me to come.I have met with the company. After our deliberation, they said they prefer to ship the gold to the family directly since I am not legally married to him. Their lawyer asked me to invite the family for the gold or let them call him for directives. And sincerely ,I am helpless with their decision ,because I don't know his people, they have never contacted us since the incident. which is extremely understandable that they don't know about us. Therefore please ,I am appealing to you as a foreigner  to stand for me as the family member, so that they can accept to release the gold back to me.Please I pray that you help me for the sake of my child's support ,even if you can take 30% of gold sales please.I beg you please. I am worried with the hope that you will reply soon . Susan")
 
-utils = utilities.Api()
 
 
 
 
-f = open("input/mails/hi.eml", 'r')
 
-main.worker(utils.extract(f, f.name)['text'])
 #main.advanced_analysis("Hello My Friend..")
 
-
-f.close()
+main.worker()
