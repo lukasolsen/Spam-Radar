@@ -28,6 +28,7 @@ We are collecting data depending on how many spam, or ham emails we've found tha
 ##### Statistics.json example:
 
 ```json
+{
 2022: {
 	14: {
 		12: {
@@ -35,6 +36,7 @@ We are collecting data depending on how many spam, or ham emails we've found tha
 				"Ham": 60000
 		}
 	}
+}
 }
 ```
 We are sorting the contents is listed into different dates.
