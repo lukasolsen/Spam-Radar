@@ -73,7 +73,8 @@ class Main(object):
 
             utils = utilities.Api()
 
-            f = open("input/mails/" + email, 'r')
+            f = open("input/mails/" + email, 'r', encoding="utf-8")
+            self.getData("input/mails/" + email)
 
             content = utils.extract(f, f.name)['text']
             for datasete in data['datasets']:
@@ -220,11 +221,11 @@ class Main(object):
         if os.path.exists('output/statistics.json'):
             with open("output/statistics.json") as f:
                 data = json.load(f)
-                
 
             with open("output/statistics.json", 'w') as f:
-                data[year][month][day]['Spam'] += amount_of_spam
-                data['Ham'] += amount_of_ham
+                data[str(year)][str(month)][str(day)]['Spam'] += amount_of_spam
+                data[str(year)][str(month)][str(day)]['Ham'] += amount_of_ham
+                
                 json.dump(data, f, indent=4)
         else:
             with open("output/statistics.json", 'w') as f:
@@ -242,17 +243,59 @@ class Main(object):
 
                 }
                 json.dump(data, f, indent=4)
-        
+
+    def linkStorage(self, link = None):
+        if os.path.exists('output/links.json'):
+            with open('output/links.json') as f:
+                data = json.load(f)
+            with open('output/links.json', 'w') as w:
+                data['links'].append(link)
+                json.dump(data, w, indent=4)
+        else:
+            with open('output/links.json', 'w') as w:
+                data = {
+                    "links": [link]
+                }
+                json.dump(data, w, indent=4)
+
+    def subjectStorage(self, subject = None):
+        if os.path.exists('output/subjects.json'):
+            with open('output/subjects.json') as f:
+                data = json.load(f)
+            with open('output/subjects.json', 'w') as w:
+                data['subjects'].append(subject)
+                json.dump(data, w, indent=4)
+        else:
+            with open('output/subjects.json', 'w') as w:
+                data = {
+                    "subjects": [subject]
+                }
+                json.dump(data, w, indent=4)
+    
+    def getData(self, file):
+        with open(file, encoding="utf-8") as f:
+            data = f.read()
+            victim = None
+            victims = []
+            hasHTML = False
+            links = []
+
+
+            if data.__contains__('Delivered-To: '):
+                victim = data.split('Delivered-To: ')[1]
+                victim = victim.split('Received:')[0]
+
+            if data.__contains__('To'):
+                c = data.split('To: ')[2]
+                victims = c.split('Content-Type')[0]
+            
+            regex=r"\b((?:https?://)?(?:(?:www\.)?(?:[\da-z\.-]+)\.(?:[a-z]{2,6})|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(?:(?:[0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,7}:|(?:[0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,5}(?::[0-9a-fA-F]{1,4}){1,2}|(?:[0-9a-fA-F]{1,4}:){1,4}(?::[0-9a-fA-F]{1,4}){1,3}|(?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}|(?:[0-9a-fA-F]{1,4}:){1,2}(?::[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:(?:(?::[0-9a-fA-F]{1,4}){1,6})|:(?:(?::[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(?::[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(?:ffff(?::0{1,4}){0,1}:){0,1}(?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])|(?:[0-9a-fA-F]{1,4}:){1,4}:(?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])))(?::[0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])?(?:/[\w\.-]*)*/?)\b"
+
+
+            if data.lower().__contains__("www") or data.lower().__contains__('http'):
+                matches = re.findall(regex, data)
+                for match in matches:
+                    self.linkStorage(match)
 main = Main()
-
-
-#main.worker("Hello Sir/Madam,I was so excited when I saw your mail. Please I am writing to you out of despair.I was living with a foreign contractor who was a gold broker. I know he is not related to you. I got a child for him, in the same year he was attacked by pirates on the coast of the Island of Malta. Before the attack, a shipping company  was supposed to ship 50 kg of gold which he bought but because of his death they didn't ship the gold. I decided to wait, hoping that the family of my daughter's father would contact me, thus we can make a claim. But ever since they never contacted us, which prompted me to call the company's lawyer that drafted the contract agreement. He spoke with the company and invited me to come.I have met with the company. After our deliberation, they said they prefer to ship the gold to the family directly since I am not legally married to him. Their lawyer asked me to invite the family for the gold or let them call him for directives. And sincerely ,I am helpless with their decision ,because I don't know his people, they have never contacted us since the incident. which is extremely understandable that they don't know about us. Therefore please ,I am appealing to you as a foreigner  to stand for me as the family member, so that they can accept to release the gold back to me.Please I pray that you help me for the sake of my child's support ,even if you can take 30% of gold sales please.I beg you please. I am worried with the hope that you will reply soon . Susan")
-
-
-
-
-
-
-#main.advanced_analysis("Hello My Friend..")
 
 main.worker()
