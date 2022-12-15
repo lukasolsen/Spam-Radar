@@ -23,6 +23,57 @@
             </div>
         </div>
     </div>
+
+    <div class="news">
+        <div class="title">
+            <h4>You can also use this to view all the found links.</h4>
+            <div class="desc">
+                <p>In this december a lot of spam emails was found, make sure to watch who you are getting your emails from. And as always stay safe kids.</p>
+                
+                <ul id="links" class="links">
+
+                </ul>            </div>
+        </div>
+    </div>
+
+    <script>
+        var today = new Date();
+var year = today.getFullYear()
+var month = (today.getMonth()) + 1
+var day = today.getDate()
+console.log(year)
+console.log(month)
+console.log(day)
+
+fetch("output/statistics.json")
+    .then(Response => Response.json())
+    .then(data => {
+        spam = data[year][month][day]
+        document.getElementById('spam').innerText = "Spam Emails: " + spam['Spam']
+        document.getElementById('ham').innerText = "Non Threatening Emails: " + spam['Ham']  
+    })
+
+fetch("output/links.json")
+    .then(Response => Response.json())
+    .then(data => {
+        links = data['links']
+        links.forEach(link => {
+            ao = document.createElement('li')
+            ao.innerText = link
+            document.getElementById('links').appendChild(ao)
+        })
+    })
+    </script>
+
+    <style>
+        .news{
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    border-radius: .3em;
+        }
+    .news .title h4{
+        font-size: 22px
+    }
+    </style>
     
 </body>
 </html>
