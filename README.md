@@ -23,7 +23,7 @@ In spam radar we got multiple folders and multiple files in different languages,
 to run this program type `$ py main.py`, or alternativily type `$ py3 main.py`. When using this you have to have your own emails with the file extension .eml, inside input/emails/.
 
 ### Using this to spread information
-We are collecting data depending on how many spam, or ham emails we've found that day. Inside your output folder, you will have a file named statistics.json.
+We are collecting data depending on how many spam, or ham emails we've found that day. Inside your output folder, you will have a file named statistics.json and a file named links.json.
 
 ##### Statistics.json example:
 
@@ -40,5 +40,17 @@ We are collecting data depending on how many spam, or ham emails we've found tha
 }
 ```
 We are sorting the contents is listed into different dates.
+
+##### Links.json example:
+
+```json
+{
+  "links": [
+  "google.com",
+  "gmail.com",
+  "virustotal.com"
+  ]
+}
+```
 
 *NOTE: You can use this information whenever you want. This is fully accessable and should be used to make others warning that spam emails does exist, and they need to be carefull with what they click on.*
