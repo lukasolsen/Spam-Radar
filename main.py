@@ -33,6 +33,7 @@ import os, sys, json
 
 try:
     import tkinter
+    from tkinter import END, SUNKEN
     import customtkinter
     from PIL import Image
 
@@ -50,15 +51,27 @@ class GUI(object):
         self.main = Main()
 
         self.app = customtkinter.CTk()
-        self.app.geometry("400x780")
+        self.app.geometry("1200x1440")
         self.app.title("NettVett - Spam Radar")
         p1 = tkinter.PhotoImage(file = 'input/GUI/icon_192x192.png')
         self.app.iconphoto(False, p1)
 
+        self.logged_in = False
+
         self.password_icon = customtkinter.CTkImage(Image.open(os.path.join("input/GUI/", "password.png")), size=(26, 26))
         self.username_icon = customtkinter.CTkImage(Image.open(os.path.join("input/GUI/", "user.png")), size=(26, 26))
         
-        self.frame_1 = customtkinter.CTkFrame(master=self.app)
+        self.links_48_icon = customtkinter.CTkImage(Image.open(os.path.join("input/GUI/", "link-48.png")), size=(26, 26))
+        self.links_96_icon = customtkinter.CTkImage(Image.open(os.path.join("input/GUI/", "link-96.png")), size=(26, 26))
+
+        self.malicious_icon = customtkinter.CTkImage(Image.open(os.path.join("input/GUI/", "malicious.png")), size=(36, 36))
+        self.safe_icon = customtkinter.CTkImage(Image.open(os.path.join("input/GUI/", "safe.png")), size=(36, 36))
+
+        self.error_icon = customtkinter.CTkImage(Image.open(os.path.join("input/GUI/", "error.png")), size=(36, 36))
+        self.main_frame = customtkinter.CTkFrame(self.app, bg_color='#F8F6F7', fg_color='#F8F6F7')
+        self.frame_1 = customtkinter.CTkFrame(self.main_frame, height=50, bg_color="transparent", fg_color='#FFFFFF', corner_radius=15)
+
+        
         self.user_frame = customtkinter.CTkFrame(master=self.frame_1, bg_color="transparent")
         self.password_frame = customtkinter.CTkFrame(master=self.frame_1, bg_color="transparent")
 
@@ -105,7 +118,10 @@ class GUI(object):
     def work(self):
 
         
-        self.frame_1.pack(pady=20, padx=60, fill="both", expand=True)
+        self.main_frame.pack(side=customtkinter.TOP, fill=customtkinter.BOTH, expand=True, padx=50, pady=50)
+        
+        
+        self.frame_1.pack(side=customtkinter.LEFT, fill=customtkinter.BOTH, expand=True, padx=15, pady=15)
 
         label_1 = customtkinter.CTkLabel(master=self.frame_1, text="Nettvett | Spam-Radar", font=("none", 36), text_color="#85BF41",justify=tkinter.LEFT)
         label_1.pack(pady=10, padx=10)
@@ -117,8 +133,11 @@ class GUI(object):
 
         
 
-        user_image = customtkinter.CTkLabel(master=self.user_frame, text="",image=self.username_icon)
-        user_image.pack(side="right")
+        user_image = customtkinter.CTkLabel(master=self.user_frame, text="",image=self.username_icon,
+                               #bg_color="#e6e1e1",
+                               #fg_color= "#e6e1e1",
+                               corner_radius=5)
+        user_image.pack(side="right", padx=5)
         self.user.pack(side="left", padx=10, pady=10)
 
         
@@ -128,8 +147,12 @@ class GUI(object):
 
         
 
-        password_image = customtkinter.CTkLabel(master=self.password_frame, text="",image=self.password_icon)
-        password_image.pack(side="right")
+        password_image = customtkinter.CTkLabel(master=self.password_frame, text="",image=self.password_icon,
+        #border_color= "#aba9a9",
+        #bg_color="#e6e1e1",
+        #fg_color= "#e6e1e1",
+        corner_radius=5)
+        password_image.pack(side="right", padx=5)
         self.password.pack(side="left", padx=10, pady=10)
 
         self.login_status = customtkinter.CTkLabel(master=self.frame_1, text="Not connected.", text_color="gray")
@@ -154,8 +177,8 @@ class GUI(object):
         login_btn.pack(pady=10, padx=10)
 
 
-        read_frame = customtkinter.CTkFrame(self.app)
-        read_frame.pack(padx=10, pady=100)
+        read_frame = customtkinter.CTkFrame(self.app, height=500)
+        read_frame.pack(padx=10, pady=35)
         
         read_emails_btn = customtkinter.CTkButton(
         master = read_frame,
@@ -173,75 +196,73 @@ class GUI(object):
         bg_color="#262626",
         fg_color= "#79ae61"
         )
+        self.links = {}
 
-        read_emails_btn.pack(pady=100, padx=10)
-
-
-
+        read_emails_btn.pack(pady=10, padx=10)
+        with open("output/links.json") as f:
+                #print(json.load(f))
+                links = json.load(f)
+        scrollbar = tkinter.Scrollbar(read_frame, orient=tkinter.VERTICAL)
         
-        # progressbar_1 = customtkinter.CTkProgressBar(master=self.frame_1)
-        # progressbar_1.pack(pady=10, padx=10)
+        
 
-        # button_1 = customtkinter.CTkButton(master=self.frame_1, command=self.button_callback)
-        # button_1.pack(pady=10, padx=10)
+        self.rating_label = customtkinter.CTkLabel(read_frame, text="We rated this as safe ", image=self.safe_icon, compound="right", font=("Poppins", 20))
+        self.rating_label.pack(padx=0, pady=10)
 
-        # slider_1 = customtkinter.CTkSlider(master=self.frame_1, command=self.slider_callback, from_=0, to=1)
-        # slider_1.pack(pady=10, padx=10)
-        # slider_1.set(0.5)
+        self.subject_label = customtkinter.CTkLabel(read_frame, text="New Year's Resolution: Let Domino's tip you 🤑 ", font=("Poppins", 16))
+        self.subject_label.pack(padx=0, pady=1)
 
-        # entry_1 = customtkinter.CTkEntry(master=self.frame_1, placeholder_text="CTkEntry")
-        # entry_1.pack(pady=10, padx=10)
+        self.from_label = customtkinter.CTkLabel(read_frame, text="\"Domino's Pizza\" <offers@e-offers.dominos.com> ", font=("Poppins", 14))
+        self.from_label.pack(padx=0, pady=0)
 
-        # optionmenu_1 = customtkinter.CTkOptionMenu(self.frame_1, values=["Option 1", "Option 2", "Option 42 long long long..."])
-        # optionmenu_1.pack(pady=10, padx=10)
-        # optionmenu_1.set("CTkOptionMenu")
-
-        # combobox_1 = customtkinter.CTkComboBox(self.frame_1, values=["Option 1", "Option 2", "Option 42 long long long..."])
-        # combobox_1.pack(pady=10, padx=10)
-        # optionmenu_1.set("CTkComboBox")
-
-        # checkbox_1 = customtkinter.CTkCheckBox(master=self.frame_1)
-        # checkbox_1.pack(pady=10, padx=10)
-
-        # radiobutton_var = tkinter.IntVar(value=1)
-
-        # radiobutton_1 = customtkinter.CTkRadioButton(master=self.frame_1, variable=radiobutton_var, value=1)
-        # radiobutton_1.pack(pady=10, padx=10)
-
-        # radiobutton_2 = customtkinter.CTkRadioButton(master=self.frame_1, variable=radiobutton_var, value=2)
-        # radiobutton_2.pack(pady=10, padx=10)
-
-        # switch_1 = customtkinter.CTkSwitch(master=self.frame_1)
-        # switch_1.pack(pady=10, padx=10)
-
-        # text_1 = customtkinter.CTkTextbox(master=self.frame_1, width=200, height=70)
-        # text_1.pack(pady=10, padx=10)
-        # text_1.insert("0.0", "CTkTextbox\n\n\n\n")
-
-        # segmented_button_1 = customtkinter.CTkSegmentedButton(master=self.frame_1, values=["CTkSegmentedButton", "Value 2"])
-        # segmented_button_1.pack(pady=10, padx=10)
-
-        # tabview_1 = customtkinter.CTkTabview(master=self.frame_1, width=200, height=70)
-        # tabview_1.pack(pady=10, padx=10)
-        # tabview_1.add("CTkTabview")
-        # tabview_1.add("Tab 2")
+        result_label = customtkinter.CTkLabel(read_frame, text="Links", image=self.links_96_icon, compound="left")
+        result_label.pack(padx=0, pady=10)
+        self.results = tkinter.Listbox(read_frame, bg="light blue", fg="white", selectmode=tkinter.BROWSE, highlightthickness=0, relief=SUNKEN, borderwidth=2, width=50, height=50, font=("Poppins", 20))
+        
+        self.results.configure(yscrollcommand=scrollbar.set)
+        self.results.pack(side=tkinter.LEFT, fill=tkinter.BOTH, pady=0, padx=10)
+        scrollbar.pack(side=tkinter.RIGHT, fill=tkinter.Y)
 
         self.app.mainloop()
 
     def read(self):
-        print("yea")
+        if self.logged_in == True:
+            malicious = self.main.worker(self.user.get(), self.password.get())
+            
+            self.subject_label.configure(text=self.main.subject)
+            self.from_label.configure(text=self.main.from_)
+        
+            with open("output/links.json") as f:
+                #print(json.load(f))
+                
+                links = json.load(f)
+            
+            for link in links['links']:
+                self.results.insert(END, link)
+            if malicious == True:
+                self.rating_label.configure(text="We rated this as spam ", text_color="red", image=self.malicious_icon, compound="right")
+            else:
+                self.rating_label.configure(text="We rated this as clean ", text_color="green", image=self.safe_icon, compound="right")
+        else:
+            self.rating_label.configure(text="Error. You need to be logged in order to evaluate your emails. ", text_color="red", image=self.error_icon, compound="right")
+            print("You need to be logged in.")
 
     def login(self):
         print("Accessed function login..")
         if self.main.login(self.user.get(), self.password.get()):
+            self.logged_in = True
             self.login_status.configure(text="Connection secured.", text_color="green")
         else:
+            self.logged_in = False
             self.login_status.configure(text="Connection failed.", text_color="red")
 
 class Main(object):
     def __init__(self):
         self.root = os.path.abspath(os.curdir)
         self.config = self.root + "/config/conf.json"
+
+        self.subject = ""
+        self.from_ = ""
 
         self.mail = imaplib.IMAP4_SSL("imap.gmail.com")
 
@@ -273,90 +294,91 @@ class Main(object):
 
         # Parse the email
         msg = email.message_from_bytes(data[0][1])
+        return msg
         print(msg['From'], ":", msg['Subject'])
 
         # Print the Plain Text (is this always the plain text?)
         print(msg.get_payload()[0].get_payload())
 
-    def worker(self):
+    def worker(self, user, password):
         data = {}
         spam = False
         scores = {}
         with open(self.config) as af:
             data = json.load(af)
             #print(data['datasets'])
-        for email in os.listdir("input/mails"):
 
-            utils = utilities.Api()
+        utils = utilities.Api()
+        self.msg = self.read_emails(user, password)
+        self.getData(self.msg)
 
-            f = open("input/mails/" + email, 'r', encoding="utf-8")
-            self.getData("input/mails/" + email)
+        for datasete in data['datasets']:
+            dataset = data['datasets'][datasete]
+            source = dataset['source']
+            path = dataset['path']
+            title = dataset['title']
+            description = dataset['description']
+            cat = dataset['gatName']
+            text = dataset['textName']
+            
+            raw_mail_data = pd.read_csv(self.root + path, encoding="ISO-8859-1")
+            mail_data = raw_mail_data.where((pd.notnull(raw_mail_data)), '')
 
-            content = utils.extract(f, f.name)['text']
-            for datasete in data['datasets']:
-                dataset = data['datasets'][datasete]
-                source = dataset['source']
-                path = dataset['path']
-                title = dataset['title']
-                description = dataset['description']
-                cat = dataset['gatName']
-                text = dataset['textName']
+            mail_data.loc[mail_data[cat] == 'spam', cat,] = 0
+            mail_data.loc[mail_data[cat] == 'ham', cat,] = 1
+
+            X = mail_data[text]
+            Y = mail_data[cat]
+
+            X_train, X_test, Y_train, Y_test = train_test_split(X, Y, train_size=0.8, test_size=0.2, random_state=3)
+
+            feature_extraction = TfidfVectorizer(min_df=1, stop_words="english", lowercase=True)
+
+            X_train_features = feature_extraction.fit_transform(X_train)
+            X_test_features = feature_extraction.transform(X_test)
+
+            Y_train = Y_train.astype('int')
+            Y_test = Y_test.astype('int')
+
+            model = LinearSVC()
+            model.fit(X_train_features, Y_train)
+
+
+            prediction_on_training_data = model.predict(X_train_features)
+            accuracy_on_training_data = accuracy_score(Y_train, prediction_on_training_data)
+
+            print('- ' + title + " Accuracy on the training data : ", accuracy_on_training_data)
+
+            prediction_on_test_data = model.predict(X_test_features)
+            accuracy_on_test_data = accuracy_score(Y_test, prediction_on_test_data)
+
+            print("- " + title + " Accuracy on test data : ", accuracy_on_test_data)
+
+            #Prediction on email
+
+            input_email = self.msg
+            print(input_email)
+
+            input_mail_features = feature_extraction.transform(input_email)
+            prediction = model.predict(input_mail_features)
+
+            if(prediction[0] == 1):
                 
-                raw_mail_data = pd.read_csv(self.root + path, encoding="ISO-8859-1")
-                mail_data = raw_mail_data.where((pd.notnull(raw_mail_data)), '')
-
-                mail_data.loc[mail_data[cat] == 'spam', cat,] = 0
-                mail_data.loc[mail_data[cat] == 'ham', cat,] = 1
-
-                X = mail_data[text]
-                Y = mail_data[cat]
-
-                X_train, X_test, Y_train, Y_test = train_test_split(X, Y, train_size=0.8, test_size=0.2, random_state=3)
-
-                feature_extraction = TfidfVectorizer(min_df=1, stop_words="english", lowercase=True)
-
-                X_train_features = feature_extraction.fit_transform(X_train)
-                X_test_features = feature_extraction.transform(X_test)
-
-                Y_train = Y_train.astype('int')
-                Y_test = Y_test.astype('int')
-
-                model = LinearSVC()
-                model.fit(X_train_features, Y_train)
-
-
-                prediction_on_training_data = model.predict(X_train_features)
-                accuracy_on_training_data = accuracy_score(Y_train, prediction_on_training_data)
-
-                print('- ' + title + " Accuracy on the training data : ", accuracy_on_training_data)
-
-                prediction_on_test_data = model.predict(X_test_features)
-                accuracy_on_test_data = accuracy_score(Y_test, prediction_on_test_data)
-
-                print("- " + title + " Accuracy on test data : ", accuracy_on_test_data)
-
-                #Prediction on email
-
-                input_email = [content]
-
-                input_mail_features = feature_extraction.transform(input_email)
-                prediction = model.predict(input_mail_features)
-
-                if(prediction[0] == 1):
-                    
-                    print(f"{title} flagged the email as non threatning (HAM)")
-                elif (prediction[0] == 0):
-                    spam = True
-                    print(f"{title} has detected the email as spam")
-                else:
-                    print("Clean email. Lucky this time haha")
-
-            if spam == True:
-                self.stats(1, 0)
-                print("We marked the email as spam.\n")
+                print(f"{title} flagged the email as non threatning (HAM)")
+            elif (prediction[0] == 0):
+                spam = True
+                print(f"{title} has detected the email as spam")
             else:
-                self.stats(0, 1)
-                print("We did not find anything weird.\n")
+                print("Clean email. Lucky this time haha")
+
+        if spam == True:
+            self.stats(1, 0)
+            print("We marked the email as spam.\n")
+            return True
+        else:
+            self.stats(0, 1)
+            print("We did not find anything weird.\n")
+            return False
 
     def advanced_analysis(self, content):
         path = 'input/data/hamnspam/'
@@ -465,7 +487,7 @@ class Main(object):
             with open('output/links.json') as f:
                 data = json.load(f)
             with open('output/links.json', 'w') as w:
-                data['links'].append(link)
+                data['links'] = link
                 json.dump(data, w, indent=4)
         else:
             with open('output/links.json', 'w') as w:
@@ -479,7 +501,7 @@ class Main(object):
             with open('output/subjects.json') as f:
                 data = json.load(f)
             with open('output/subjects.json', 'w') as w:
-                data['subjects'].append(subject)
+                data['subjects'] = subject
                 json.dump(data, w, indent=4)
         else:
             with open('output/subjects.json', 'w') as w:
@@ -488,34 +510,59 @@ class Main(object):
                 }
                 json.dump(data, w, indent=4)
     
-    def getData(self, file):
-        with open(file, encoding="utf-8") as f:
-            data = f.read()
+    def fromStorage(self, from_ = None):
+        if os.path.exists('output/spam_emails.json'):
+            with open('output/spam_emails.json') as f:
+                data = json.load(f)
+            with open('output/spam_emails.json', 'w') as w:
+                data['spam_emails'] = from_
+                json.dump(data, w, indent=4)
+        else:
+            with open('output/spam_emails.json', 'w') as w:
+                data = {
+                    "spam_emails": [from_]
+                }
+                json.dump(data, w, indent=4)
+
+    def getData(self, content):
+            data = content
             victim = None
             victims = []
             hasHTML = False
             links = []
 
+            print(data.keys())
+            if 'Delivered-To' in data.keys():
+                victim = data['Delivered-To']
 
-            if data.__contains__('Delivered-To: '):
-                victim = data.split('Delivered-To: ')[1]
-                victim = victim.split('Received:')[0]
+            if 'To' in data.keys():
+                victims = data['To']
 
-            if data.__contains__('To'):
-                c = data.split('To: ')[2]
-                victims = c.split('Content-Type')[0]
+            if 'Subject' in data.keys():
+                subject = data['Subject']
+                self.subject = subject
+
+            if 'From' in data.keys():
+                from_ = data['From']
+                new_from = str(from_).split('<')[1]
+                new_from = new_from.split('>')[0]
+                self.from_ = new_from
             
             regex=r"\b((?:https?://)?(?:(?:www\.)?(?:[\da-z\.-]+)\.(?:[a-z]{2,6})|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(?:(?:[0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,7}:|(?:[0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,5}(?::[0-9a-fA-F]{1,4}){1,2}|(?:[0-9a-fA-F]{1,4}:){1,4}(?::[0-9a-fA-F]{1,4}){1,3}|(?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}|(?:[0-9a-fA-F]{1,4}:){1,2}(?::[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:(?:(?::[0-9a-fA-F]{1,4}){1,6})|:(?:(?::[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(?::[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(?:ffff(?::0{1,4}){0,1}:){0,1}(?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])|(?:[0-9a-fA-F]{1,4}:){1,4}:(?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])))(?::[0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])?(?:/[\w\.-]*)*/?)\b"
 
+            payload = data.get_payload()
+            for content in payload:
+                if content.__contains__("www") or content.__contains__('http'):
+                    matches = re.findall(regex, content)
+                    for match in matches:
+                        print(match)
+                        self.linkStorage(match)
+            
 
-            if data.lower().__contains__("www") or data.lower().__contains__('http'):
-                matches = re.findall(regex, data)
-                for match in matches:
-                    self.linkStorage(match)
 main = Main()
 
 #main.worker()
 #main.read_emails("lukeproductions3@gmail.com", "mmwyktfkyqzauyif")
-Main().login("lukproductions3@gmail.com", 'asdk')
+#Main().login("lukproductions3@gmail.com", 'asdk')
 
 GUI().work()
